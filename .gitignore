@@ -4,19 +4,24 @@
 
 !.gitignore
 
-|* D:\AgentDs\agent_ds_healthcare\Challenge1_Health_Final.ipynb
+|*.agent_ds_healthcare\Challenge1_Health_Final.ipynb
 
-|* D:\AgentDs\agent_ds_healthcare\Challenge2_baseline_ichi_v2.ipynb
-|* D:\AgentDs\agent_ds_healthcare\Challenge2_baseline_ichi_v3.ipynb
-|* D:\AgentDs\agent_ds_healthcare\Challenge2_baseline_ichi_v4.ipynb
-|* D:\AgentDs\agent_ds_healthcare\Challenge2_baseline_ichi_v5.ipynb
-|* D:\AgentDs\agent_ds_healthcare\Challenge2_baseline_ichi_v6.ipynb
-|* D:\AgentDs\agent_ds_healthcare\Challenge2_baseline_ichi_v7.ipynb
-|* D:\AgentDs\agent_ds_healthcare\Challenge2_baseline_ichi_v8.ipynb
-|* D:\AgentDs\agent_ds_healthcare\Challenge2_baseline_ichi_v9.ipynb
+|*.agent_ds_healthcare\Challenge2_baseline_ichi_v2.ipynb
+|*.agent_ds_healthcare\Challenge2_baseline_ichi_v3.ipynb
+|*.agent_ds_healthcare\Challenge2_baseline_ichi_v4.ipynb
+|*.agent_ds_healthcare\Challenge2_baseline_ichi_v5.ipynb
+|*.agent_ds_healthcare\Challenge2_baseline_ichi_v6.ipynb
+|*.agent_ds_healthcare\Challenge2_baseline_ichi_v7.ipynb
+|*.agent_ds_healthcare\Challenge2_baseline_ichi_v8.ipynb
+|*.agent_ds_healthcare\Challenge2_baseline_ichi_v9.ipynb
+|*.agent_ds_healthcare\Challenge2_baseline_ichi_best.ipynb
 
 
-|* D:\AgentDs\agent_ds_healthcare\Challenge3_ichi_v0.ipynb
-|* D:\AgentDs\agent_ds_healthcare\Challenge3_ichi_v1.ipynb
-|* D:\AgentDs\agent_ds_healthcare\Challenge3_ichi_v2.ipynb
-|* D:\AgentDs\agent_ds_healthcare\Challenge3_ichi_v3.ipynb
+|*.agent_ds_healthcare\Challenge3_ichi_v0.ipynb
+|*.agent_ds_healthcare\Challenge3_ichi_v1.ipynb
+|*.agent_ds_healthcare\Challenge3_ichi_v2.ipynb
+|*.agent_ds_healthcare\Challenge3_ichi_v3.ipynb
+|*.agent_ds_healthcare\Challenge3_ichi_best.ipynb
+
+|*.requirements.txt
+|*.env.example
