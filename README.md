@@ -1,65 +1,73 @@
 # HMITL: Manager-Governed LLM Iteration with Guardrails and Rollback for Reproducible Healthcare Machine Learning Pipelines
 
-This repository accompanies the paper **“HMITL: Manager-Governed LLM Iteration with Guardrails and Rollback for Reproducible Healthcare Machine Learning Pipelines.”**
+This repository accompanies the paper **"HMITL: Manager-Governed LLM Iteration with Guardrails and Rollback for Reproducible Healthcare Machine Learning Pipelines"**.
 
-HMITL is a workflow protocol for human–LLM collaboration in multimodal healthcare machine learning. Instead of letting an LLM iterate autonomously on a pipeline, HMITL assigns the human the role of **workflow manager**: maintaining the task brief, enforcing data-integrity guardrails, evaluating every candidate under a deterministic harness, and rolling back regressions.
+HMITL is a workflow protocol for manager-governed human-LLM collaboration in multimodal healthcare machine learning. Rather than allowing an LLM to iterate freely on a pipeline, HMITL assigns the human the role of **workflow manager**: maintaining the task brief, enforcing data-integrity guardrails, running deterministic evaluation, auditing every candidate, and rolling back regressions.
 
-The experiments in this repository are built on **AgentDS-Healthcare**, a synthetic, privacy-free benchmark with three tasks spanning structured tables, short clinical text, PDF receipts, and time-series JSON.
+The public release in this repository is organized around **AgentDS-Healthcare**, a synthetic, privacy-free benchmark with three tasks spanning structured tables, short clinical text, PDF receipts, and time-series JSON.
 
 ---
 
-## Reader Guide
+## Reviewer / Reader Quick Start
 
-If you only want the paper-relevant path through the repository:
+If you only want the shortest paper-relevant path through the repository:
 
-1. Read the **Results at a Glance** section below.
-2. Go directly to `agent_ds_healthcare/`.
-3. Use the following canonical entry points:
+1. Read the **Highlights** section below.
+2. Create a clean Python environment and install `requirements.txt`.
+3. Copy `.env.example` to `.env` and set your local paths and benchmark credentials.
+4. Download the upstream **AgentDS-Healthcare** data.
+5. Point `CLAI_BASE_DIR` to your local Healthcare data directory.
+6. Go directly to `agent_ds_healthcare/`.
+7. Use the canonical best-entry notebooks:
    - **Challenge 1**: `Challenge1_Health_Final.ipynb`
-   - **Challenge 2**: `Challenge2_baseline_ichi_v9.ipynb`
-   - **Challenge 3 controlled study**: `Challenge3_ichi_v0.ipynb`, `Challenge3_ichi_v1.ipynb`, `Challenge3_ichi_v2.ipynb`, `Challenge3_ichi_v3.ipynb`
-4. Treat `ch2_artifacts/` and `ch3_artifacts/` as **audit logs and reproducibility artifacts**. They are included for transparency, not because we expect readers to inspect every file line by line.
-
-A number of files in this release are intentionally preserved in their working form (for example, raw prompt logs, iterative notes, or untranslated prompt fragments). These files are included to make the development process auditable. They are not required for understanding the main paper claims.
+   - **Challenge 2**: `Challenge2_baseline_ichi_best.ipynb`
+   - **Challenge 3**: `Challenge3_ichi_best.ipynb`
+8. Treat `ch2_artifacts/` and `ch3_artifacts/` as **audit logs and reproducibility artifacts**. They are included for transparency; reviewers are not expected to inspect every artifact file line by line.
 
 ---
 
-## Results at a Glance
+## Highlights
 
-| Benchmark task | Metric | Paper-reported result | Main entry point |
-|---|---:|---:|---|
-| Challenge 1: 30-day readmission prediction | Macro-F1 ↑ | **0.9014** | `agent_ds_healthcare/Challenge1_Health_Final.ipynb` |
-| Challenge 2: ED cost forecasting | MAE ↓ | **447.9542** | `agent_ds_healthcare/Challenge2_baseline_ichi_v9.ipynb` |
-| Challenge 3: controlled study, V2 (multi-window arbitration + rollback) | Macro-F1 ↑ | **0.8408** | `agent_ds_healthcare/Challenge3_ichi_v2.ipynb` |
+### Paper framing
 
-### Controlled-study variants for Challenge 3
+This repository documents a manager-governed approach to LLM-assisted data-science iteration under explicit guardrails, deterministic evaluation, and rollback-aware selection.
 
-| Variant | Description | Notebook | Trace artifact |
-|---|---|---|---|
-| V0 | Single-window continuation without explicit rollback | `Challenge3_ichi_v0.ipynb` | `ch3_artifacts/clai_ch3_v0_iteration_detail.jsonl` |
-| V1 | Single-window + rollback | `Challenge3_ichi_v1.ipynb` | `ch3_artifacts/clai_ch3_v1_iteration_detail.jsonl` |
-| V2 | Multi-window arbitration + rollback | `Challenge3_ichi_v2.ipynb` | `ch3_artifacts/clai_ch3_v2_iteration_detail.jsonl` |
-| V3 | V2 + consultant second opinion | `Challenge3_ichi_v3.ipynb` | `ch3_artifacts/clai_ch3_v3_iteration_detail.jsonl` |
+### Main benchmark tasks covered in this release
+
+- **Challenge 1** - 30-day readmission prediction
+- **Challenge 2** - ED cost forecasting
+- **Challenge 3** - discharge readiness prediction
+
+### Paper-relevant best public entry points
+
+| Benchmark task | Canonical notebook | Notes |
+|---|---|---|
+| Challenge 1 | `agent_ds_healthcare/Challenge1_Health_Final.ipynb` | Final public Challenge 1 notebook retained in working form |
+| Challenge 2 | `agent_ds_healthcare/Challenge2_baseline_ichi_best.ipynb` | Separate best-entry notebook added for easier reviewer navigation |
+| Challenge 3 | `agent_ds_healthcare/Challenge3_ichi_best.ipynb` | Separate best-entry notebook added for easier reviewer navigation |
+
+If you want the paper process rather than only the best final entry points, also inspect the archived experiment notebooks and artifact folders under `agent_ds_healthcare/`.
 
 ---
 
 ## What Is in This Repository
 
 ### Paper-relevant content
+
 - `agent_ds_healthcare/`
-  - notebooks for all three healthcare challenges
-  - Challenge 2 iteration history (`v2`–`v9`)
-  - Challenge 3 controlled-study variants (`v0`–`v3`)
-  - raw and summarized reproducibility artifacts
+  - Challenge 1, 2, and 3 notebooks
+  - public best-entry notebooks for Challenge 2 and Challenge 3
+  - reproducibility artifacts and experiment logs
 - `agent_ds_healthcare/ch2_artifacts/`
-  - Challenge 2 human-manager records, prompt traces, iteration summaries, ablations, and optimization logs
+  - Challenge 2 manager logs, iteration summaries, optimization traces, and supporting artifacts
 - `agent_ds_healthcare/ch3_artifacts/`
-  - machine-readable JSONL traces for the fixed-budget controlled study reported in the paper
+  - Challenge 3 JSONL traces and controlled-study records
 
 ### Additional non-core content
+
 - `agent_ds_commerce/`
   - retained from broader AgentDS participation
-  - **not required** to reproduce the healthcare paper results
+  - **not required** to review or reproduce the healthcare paper results
 
 ---
 
@@ -69,186 +77,234 @@ A number of files in this release are intentionally preserved in their working f
 .
 ├── agent_ds_healthcare/
 │   ├── Challenge1_Health_Final.ipynb
-│   ├── Challenge2_baseline_ichi_v2.ipynb
-│   ├── Challenge2_baseline_ichi_v3.ipynb
-│   ├── Challenge2_baseline_ichi_v4.ipynb
-│   ├── Challenge2_baseline_ichi_v5.ipynb
-│   ├── Challenge2_baseline_ichi_v6.ipynb
-│   ├── Challenge2_baseline_ichi_v7.ipynb
-│   ├── Challenge2_baseline_ichi_v8.ipynb
-│   ├── Challenge2_baseline_ichi_v9.ipynb
-│   ├── Challenge3_ichi_v0.ipynb
-│   ├── Challenge3_ichi_v1.ipynb
-│   ├── Challenge3_ichi_v2.ipynb
-│   ├── Challenge3_ichi_v3.ipynb
+│   ├── Challenge2_baseline_ichi_best.ipynb
+│   ├── Challenge3_ichi_best.ipynb
 │   ├── ch2_artifacts/
-│   └── ch3_artifacts/
-├── agent_ds_commerce/                 # auxiliary; not needed for the healthcare paper
+│   ├── ch3_artifacts/
+│   └── ...
+├── agent_ds_commerce/                  # auxiliary; not needed for the healthcare paper
 ├── requirements.txt
-├── environment.yml
+├── .env.example
 └── README.md
 ```
 
 ---
 
-## Dataset and Benchmark
+## Tested Environment
 
-The experiments use **AgentDS-Healthcare**, which provides three synthetic healthcare tasks:
+This public release was prepared around:
 
-1. **30-day readmission prediction** from admissions tables + a short discharge note.
-2. **ED cost forecasting** from structured utilization history + one PDF billing receipt per patient.
-3. **Discharge readiness prediction** from 10 days of vital-sign time series + short daily notes.
+- **Python 3.12**
+- Windows local development for the author-side runs
+- notebook-based execution for the paper path
 
-The upstream dataset repository groups all healthcare files under a single `Healthcare/` directory. The relevant files include:
+A clean virtual environment is strongly recommended.
+
+---
+
+## Installation
+
+### 1. Create a clean virtual environment
+
+#### Windows PowerShell
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+#### macOS / Linux
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### 2. Register the environment as a notebook kernel
+
+```bash
+python -m ipykernel install --user --name hmitl-agentds --display-name "Python (hmitl-agentds)"
+```
+
+### 3. GPU note for PyTorch users
+
+If you want GPU-enabled local runs, install the PyTorch wheel that matches your CUDA setup first, then install the rest of the requirements. CPU-only installation is sufficient for basic repository inspection and many reproduction checks.
+
+---
+
+## Configuration via `.env`
+
+Create a local `.env` file in the repository root by copying `.env.example`:
+
+#### Windows PowerShell
+
+```powershell
+Copy-Item .env.example .env
+```
+
+#### macOS / Linux
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env` and fill in your values:
+
+```env
+AGENTDS_API_KEY=your_agentds_api_key_here
+AGENTDS_TEAM_NAME=your_team_name_here
+CLAI_BASE_DIR=D:/AgentDs/agent_ds_healthcare
+CLAI_RECEIPT_DIR=D:/AgentDs/agent_ds_healthcare/receipt
+```
+
+### What the variables mean
+
+- `AGENTDS_API_KEY`: your benchmark submission API key
+- `AGENTDS_TEAM_NAME`: your exact AgentDS team name
+- `CLAI_BASE_DIR`: root folder that contains the Healthcare benchmark files
+- `CLAI_RECEIPT_DIR`: optional override for the raw receipt PDF folder used in Challenge 2
+- `CLAI_BRANCH`, `FEATURE_CACHE_MODE`, `FORCE_RETRAIN`: optional experiment controls used by some legacy notebooks
+
+### Important
+
+Do **not** commit your real `.env` file or benchmark credentials.
+
+---
+
+## AgentDS-Healthcare Data
+
+This repository does **not** redistribute the raw benchmark data or the raw receipt PDFs. The dataset is publicly available upstream and should be downloaded directly from the official AgentDS-Healthcare source.
+
+### Recommended download method on Windows
+
+Because the benchmark includes many files and a large receipt-PDF folder, Windows users are encouraged to use **Git Bash** or the **Hugging Face CLI** rather than manually downloading files one by one.
+
+### Option A: Hugging Face CLI snapshot download
+
+```bash
+pip install -U huggingface_hub hf-xet
+huggingface-cli download lainmn/AgentDS-Healthcare --repo-type dataset --local-dir ./data/AgentDS-Healthcare
+```
+
+### Option B: Git / Git Bash clone
+
+```bash
+git lfs install
+git clone https://huggingface.co/datasets/lainmn/AgentDS-Healthcare ./data/AgentDS-Healthcare
+```
+
+After download, the Healthcare files will typically live under:
 
 ```text
-Healthcare/
-├── patients.csv
+./data/AgentDS-Healthcare/Healthcare
+```
+
+Point `CLAI_BASE_DIR` in your `.env` file to that directory.
+
+---
+
+## Expected Local Data Layout
+
+### Recommended external layout (author-style Windows path)
+
+```text
+D:/AgentDs/agent_ds_healthcare/
 ├── admissions_train.csv
 ├── admissions_test.csv
 ├── discharge_notes.json
 ├── ed_cost_train.csv
 ├── ed_cost_test.csv
-├── receipts_pdf/
-│   └── receipt_<patient_id>.pdf
+├── patients.csv
 ├── stays_train.csv
 ├── stays_test.csv
-└── vitals_timeseries.json
+├── vitals_timeseries.json
+├── receipts_pdf/             # upstream naming; either is fine
+│   ├── receipt_<patient_id>.pdf
+│   └── ...
+└── receipts_parsed.joblib    # derived cache used by the Challenge 2 best notebook
 ```
 
----
+### Alternative repo-local layout
 
-## Environment Setup
-
-We recommend using either the provided Conda environment or a clean virtual environment.
-
-### Option A: Conda
-
-```bash
-conda env create -f environment.yml
-conda activate hmitl
-```
-
-### Option B: venv
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-On Windows PowerShell:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
-
-### Core dependencies
-
-The notebooks rely on standard scientific Python tooling plus gradient-boosting and text-feature libraries. The main dependencies are:
-
-- `agentds-bench`
-- `pandas`, `numpy`, `scipy`, `scikit-learn`, `joblib`
-- `lightgbm`, `catboost`, `xgboost`
-- `sentence-transformers`, `torch`
-- `jupyter` / `notebook`
-- `huggingface_hub`
-
----
-
-## AgentDS Credentials
-
-To submit predictions to the official AgentDS benchmark, you need an **API key** and your **team name**.
-
-Set them as environment variables before running the notebooks:
-
-```bash
-export AGENTDS_API_KEY=<your_agentds_api_key>
-export AGENTDS_TEAM_NAME=<your_team_name>
-```
-
-On Windows PowerShell:
-
-```powershell
-$env:AGENTDS_API_KEY = "<your_agentds_api_key>"
-$env:AGENTDS_TEAM_NAME = "<your_team_name>"
-```
-
-The notebooks are written so that local experimentation is possible without submission, but benchmark submission requires valid credentials.
-
----
-
-## Downloading AgentDS-Healthcare
-
-Because AgentDS-Healthcare mixes multiple challenge-specific tables and also includes a `receipts_pdf/` directory, we recommend downloading the **dataset repository snapshot** rather than relying on a single `datasets.load_dataset(...)` call.
-
-### Recommended: Hugging Face CLI snapshot download
-
-```bash
-pip install -U huggingface_hub hf_xet
-hf download lainmn/AgentDS-Healthcare \
-  --repo-type dataset \
-  --local-dir data/AgentDS-Healthcare
-```
-
-### Alternative: Git / Git Bash clone
-
-This option is convenient on Windows, especially when working with the PDF folder directly.
-
-```bash
-git lfs install
-git xet install
-git clone https://huggingface.co/datasets/lainmn/AgentDS-Healthcare data/AgentDS-Healthcare
-```
-
-After download, point the repository to the healthcare folder:
-
-```bash
-export CLAI_BASE_DIR=$PWD/data/AgentDS-Healthcare/Healthcare
-```
-
-On Windows PowerShell:
-
-```powershell
-$env:CLAI_BASE_DIR = "$PWD/data/AgentDS-Healthcare/Healthcare"
-```
-
-If your local layout differs, update the path once and keep the folder contents unchanged.
-
----
-
-## Challenge 2 Receipt Preparation
-
-Challenge 2 uses one synthetic billing PDF per patient. For reproducibility and speed, the modeling notebook expects a cached parsed artifact:
+You may also keep the benchmark files directly under a repository-local folder:
 
 ```text
-$CLAI_BASE_DIR/receipts_parsed.joblib
+./agent_ds_healthcare/
 ```
 
-Generate it once with the receipt-preparation script:
+and set:
 
-```bash
-python scripts/prepare_ch2_receipts.py \
-  --data-dir "$CLAI_BASE_DIR" \
-  --pdf-dir "$CLAI_BASE_DIR/receipts_pdf" \
-  --output "$CLAI_BASE_DIR/receipts_parsed.joblib"
+```env
+CLAI_BASE_DIR=./agent_ds_healthcare
 ```
 
-This preparation step performs PDF extraction, receipt-level sanity checks, and caching so that later modeling iterations operate on a fixed parsed representation.
+### Directory naming note for Challenge 2 receipts
 
-If you are using the paper release cache instead of regenerating it, place the cached file directly at:
+The upstream dataset uses `receipts_pdf/`. In the author's local workflow, the raw receipt PDFs may also be stored under `receipt/`.
 
-```text
-$CLAI_BASE_DIR/receipts_parsed.joblib
-```
+Either layout is acceptable as long as:
+
+- the raw PDF filenames remain unchanged, and
+- `CLAI_RECEIPT_DIR` points to the correct folder when needed.
 
 ---
 
-## How to Run the Main Experiments
+## Challenge 2 Receipt Cache
 
-## 1) Challenge 1 — 30-day readmission
+The best public Challenge 2 notebook expects a derived cache file:
+
+```text
+<CLAI_BASE_DIR>/receipts_parsed.joblib
+```
+
+This cache is **not** committed to the repository and should be generated locally from the raw receipt PDFs before running the best Challenge 2 notebook.
+
+In other words:
+
+- raw PDFs stay in `receipt/` or `receipts_pdf/`
+- the derived parsed cache should be saved as `receipts_parsed.joblib` under `CLAI_BASE_DIR`
+
+If you do not already have that cache, prepare it once locally before running the Challenge 2 best notebook.
+
+---
+
+## Path Handling and Legacy Notebook Notes
+
+This repository contains both cleaned entry-point notebooks and historical working notebooks.
+
+### Recommended path convention
+
+Use `.env` plus `CLAI_BASE_DIR` as the single source of truth for your data location.
+
+### If your local directory is different
+
+That is completely fine.
+
+For example, if your data lives at:
+
+```text
+E:/datasets/AgentDS/Healthcare
+```
+
+set:
+
+```env
+CLAI_BASE_DIR=E:/datasets/AgentDS/Healthcare
+```
+
+### Legacy notebook note
+
+Some newer notebooks are already closer to environment-variable-based configuration, while some legacy notebooks still contain a small hard-coded path block near the top. If a notebook does not yet read `CLAI_BASE_DIR` directly, update **only that path configuration block** to your local data directory rather than editing the entire notebook.
+
+---
+
+## How to Run the Main Notebooks
+
+## 1) Challenge 1 - 30-day readmission
 
 Canonical entry point:
 
@@ -256,7 +312,8 @@ Canonical entry point:
 agent_ds_healthcare/Challenge1_Health_Final.ipynb
 ```
 
-This notebook uses:
+Expected core inputs:
+
 - `admissions_train.csv`
 - `admissions_test.csv`
 - `patients.csv`
@@ -268,15 +325,18 @@ Expected submission format:
 admission_id,readmit_30d
 ```
 
-## 2) Challenge 2 — ED cost forecasting
+---
+
+## 2) Challenge 2 - ED cost forecasting
 
 Canonical entry point:
 
 ```text
-agent_ds_healthcare/Challenge2_baseline_ichi_v9.ipynb
+agent_ds_healthcare/Challenge2_baseline_ichi_best.ipynb
 ```
 
-Required inputs:
+Expected core inputs:
+
 - `ed_cost_train.csv`
 - `ed_cost_test.csv`
 - `patients.csv`
@@ -284,24 +344,26 @@ Required inputs:
 - `admissions_test.csv`
 - `receipts_parsed.joblib`
 
+Raw receipt PDFs should remain available locally under either `receipt/` or `receipts_pdf/` if you need to rebuild the parsed cache.
+
 Expected submission format:
 
 ```text
 patient_id,ed_cost_next3y_usd
 ```
 
-## 3) Challenge 3 — controlled study
+---
 
-Canonical entry points:
+## 3) Challenge 3 - discharge readiness prediction
+
+Canonical entry point:
 
 ```text
-agent_ds_healthcare/Challenge3_ichi_v0.ipynb
-agent_ds_healthcare/Challenge3_ichi_v1.ipynb
-agent_ds_healthcare/Challenge3_ichi_v2.ipynb
-agent_ds_healthcare/Challenge3_ichi_v3.ipynb
+agent_ds_healthcare/Challenge3_ichi_best.ipynb
 ```
 
-Required inputs:
+Expected core inputs:
+
 - `stays_train.csv`
 - `stays_test.csv`
 - `patients.csv`
@@ -313,53 +375,50 @@ Expected submission format:
 stay_id,discharge_ready_day11
 ```
 
-### Practical note on the notebooks
+---
 
-These notebooks preserve real iteration history rather than only a single “clean-room final script.” That is deliberate. They are intended to document how the HMITL process evolved across trials, ablations, and branches.
+## Recommended Credential Pattern Inside Notebooks
 
-For readers who want the shortest path:
-- use the canonical entry-point notebooks listed above;
-- jump to the final sections labeled **Submission** / **Submit Predictions** for the latest paper-relevant branch;
-- consult the artifact folders only if you want the full audit trail.
+For a public release, benchmark credentials should not be hard-coded in notebooks. The recommended pattern is:
+
+```python
+import os
+from dotenv import load_dotenv
+from agentds import BenchmarkClient
+
+load_dotenv()
+
+client = BenchmarkClient(
+    api_key=os.environ["AGENTDS_API_KEY"],
+    team_name=os.environ["AGENTDS_TEAM_NAME"],
+)
+```
+
+Similarly, use `CLAI_BASE_DIR` to define the local dataset path rather than hard-coding a machine-specific directory.
 
 ---
 
 ## Reproducibility Artifacts
 
 ### `ch2_artifacts/`
-Challenge 2 artifacts include:
-- manager-governed iteration logs
-- prompt + code delta records
-- ablation records
-- optimization traces
-- raw working notes preserved for auditability
+
+Challenge 2 artifacts include manager-governed iteration logs, optimization traces, supporting notes, and reproducibility records.
 
 ### `ch3_artifacts/`
-Challenge 3 artifacts include:
-- per-variant JSONL traces
-- fixed-budget iteration records
-- variant-level evidence for rollback, arbitration, and consultant effects
 
-These files are included so that the **decision process** is inspectable, not just the final scores.
+Challenge 3 artifacts include JSONL traces, controlled-study records, and rollback-related evidence.
+
+These files are included so that the **decision process** is inspectable, not only the final leaderboard-facing outputs.
 
 ---
 
-## Important Notes for Readers
+## Notes for Reviewers
 
-1. **Paper-relevant content is under `agent_ds_healthcare/`.**
-   The root repository also includes auxiliary material from broader AgentDS participation.
-
-2. **Some artifacts are raw working records.**
-   A subset of logs contain concise working notes or prompt fragments. They are kept for transparency and are not required for basic reproduction.
-
-3. **The notebooks preserve multiple experimental branches.**
-   This repository intentionally keeps more than a single final notebook so that reviewers can see the evolution of the pipeline and the role of rollback-aware selection.
-
-4. **Challenge 2 depends on cached receipt parsing.**
-   If `receipts_parsed.joblib` is absent, prepare it first from `receipts_pdf/`.
-
-5. **Do not commit benchmark credentials.**
-   Use environment variables for API keys and team identifiers.
+1. **The main paper path is under `agent_ds_healthcare/`.**
+2. **You are not expected to inspect every artifact file.** The artifact folders are included for auditability.
+3. **Some artifacts preserve raw working records.** A small subset may contain concise prompt fragments, iteration notes, or partially bilingual working material. They are preserved for transparency and are not required for understanding the main paper claims.
+4. **The best-entry notebooks are separated for convenience.** Historical notebooks are retained because the paper is about both performance and the process that produced it.
+5. **Challenge 2 requires a local parsed receipt cache.** The raw PDFs are upstream; the derived `receipts_parsed.joblib` should be prepared locally.
 
 ---
 
@@ -371,12 +430,11 @@ If you use this repository, please cite the accompanying paper:
 @misc{chen2026hmitl,
   title={HMITL: Manager-Governed LLM Iteration with Guardrails and Rollback for Reproducible Healthcare Machine Learning Pipelines},
   author={Jialuo Chen and Haijing Wang and Siyu Shao},
-  year={2026},
-  note={Paper accompanying this repository}
+  year={2026}
 }
 ```
 
-Please also cite the upstream AgentDS benchmark and respect the dataset’s license and usage terms.
+Please also cite the upstream AgentDS benchmark and respect the dataset license and usage terms.
 
 ---
 
@@ -388,7 +446,6 @@ We thank the AgentDS Benchmark team for releasing AgentDS-Healthcare and the cha
 
 ## Upstream References
 
-- AgentDS benchmark: <https://huggingface.co/datasets/lainmn/AgentDS>
 - AgentDS-Healthcare dataset: <https://huggingface.co/datasets/lainmn/AgentDS-Healthcare>
+- AgentDS benchmark: <https://huggingface.co/datasets/lainmn/AgentDS>
 - AgentDS website: <https://agentds.org>
-
